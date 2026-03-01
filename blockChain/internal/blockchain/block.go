@@ -1,10 +1,10 @@
 package blockchain
 
 import (
-	"fmt"
+	"time"
 )
 
-type struct Block{
+type Block struct {
 	Index int
 	PrevHash string
 	Timestamp string
@@ -13,6 +13,19 @@ type struct Block{
 	Nonce int
 }
 
-func createBlock(data string){
+func createBlock(data string, index int, prevHash string) *Block{
+	block := *Block{
+		Index: index,
+		PrevHash: prevHash,
+		Timestamp: time.Now(),
+		//We don't set hash. We set during proof of work
+		Data: data,
+		Nonce: 0,
+	}
+	return block
+
+
+
+
 
 }
