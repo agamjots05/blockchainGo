@@ -13,19 +13,16 @@ type Block struct {
 	Nonce int
 }
 
-func createBlock(data string, index int, prevHash string) *Block{
-	block := *Block{
+func CreateBlock(data string, index int, prevHash string) *Block{
+	curTimeStamp := time.Now()
+	formatTime := curTimeStamp.Format("2006-01-02 15:04:05")
+	block := &Block{
 		Index: index,
 		PrevHash: prevHash,
-		Timestamp: time.Now(),
+		Timestamp: formatTime,
 		//We don't set hash. We set during proof of work
 		Data: data,
 		Nonce: 0,
 	}
 	return block
-
-
-
-
-
 }
