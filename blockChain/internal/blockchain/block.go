@@ -3,6 +3,11 @@ package blockchain
 import (
 	"time"
 )
+type BlockStatistic struct {
+	Numworkers int
+	TotalHashesChecked int
+	TimeTakenToMine string
+}
 
 type Block struct {
 	Index int
@@ -11,6 +16,7 @@ type Block struct {
 	Hash string
 	Data string
 	Nonce int
+	Statistic BlockStatistic
 }
 
 func CreateBlock(data string, index int, prevHash string) *Block{
@@ -22,6 +28,11 @@ func CreateBlock(data string, index int, prevHash string) *Block{
 		Timestamp: formatTime,
 		//We don't set hash. We set during proof of work
 		Data: data,
+		Statistic: BlockStatistic{
+			Numworkers: 0,
+			TotalHashesChecked: 0,
+			TimeTakenToMine: "",
+		},
 		Nonce: 0,
 	}
 	return block

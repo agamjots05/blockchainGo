@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	"strings"
 	"strconv"
+	"time"
 )
 
 func findHash(curBlock *Block, curNonce int) string {
@@ -31,6 +32,9 @@ func Proofofwork(curBlock *Block, difficulty int){
 	Each worker will be working on their set of nonces each trying to find a valid hash.
 	After one worker has found a valid hash, they will populate the foundNonce Channel
 	*/
+
+	//Start timer for statistic at the end
+	curTime := time.Now()
 	numWorkers := runtime.NumCPU()
 	validNonce := make(chan int, 1)
 	validHash := make(chan string, 1)
@@ -43,11 +47,14 @@ func Proofofwork(curBlock *Block, difficulty int){
 			defer wg.Done()
 			for {
 				select {
+
 				case <-stopCond:
 					return 
+
 				default:
 					//Determine whether current nonce is a valid one
 					/*
+
 					If we find a valid hash -> Close our stopCond chan to 
 					signal other workers someone has found a valid hash.
 
@@ -56,7 +63,7 @@ func Proofofwork(curBlock *Block, difficulty int){
 					*/
 					curHash := findHash(curBlock, curNonce)
 					if (validateHash(curHash, difficulty)){
-						fmt.Println("Miner has found a valid nonce")
+						fmt.Println("--- Miner has found a valid nonce ---")
 						validNonce <- curNonce
 						validHash <- curHash
 						return
@@ -74,7 +81,11 @@ func Proofofwork(curBlock *Block, difficulty int){
 	wg.Wait()
 	curBlock.Hash = hash
 	curBlock.Nonce = nonce
-	return
+
+	//Adding statistics
+	curBlock.Statistic.Numworkers = numWorkers
+	curBlock.Statistic.TotalHashesChecked = nonce
+	curBlock.Statistic.TimeTakenToMine = time.Since(curTime).String()
 
 
 

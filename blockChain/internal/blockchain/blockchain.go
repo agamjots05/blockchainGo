@@ -1,7 +1,6 @@
 package blockchain
 
 import (
-	"fmt"
 )
 
 type BlockChain struct {
@@ -17,7 +16,6 @@ func InitChain(difficulty int) *BlockChain{
 		Chain: []*Block{genesis},
 		Difficulty: difficulty,
 	}
-	fmt.Println("Finished Chain")
 	return bc
 
 }
