@@ -6,6 +6,7 @@ import(
 	"strconv"
 	"os"
 	"blockChain/internal/blockchain"
+	"strings"
 )
 
 func main(){
@@ -15,7 +16,7 @@ func main(){
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Println("Welcome to the Block Chain CLI. Choose a number below")
 	for {
-		fmt.Println("1 --> Add a transaction to a block chain ")
+		fmt.Println("\n1 --> Add a transaction to a block chain ")
 		fmt.Println("2 --> Print a specific blocks statistics")
 		fmt.Println("3 --> Print your current block chain ")
 		fmt.Println("4 --> Validate Current Chain ")
@@ -25,7 +26,7 @@ func main(){
 			num, err := strconv.Atoi(input)
 			// Invalid User input type
 			if err != nil{
-	 			fmt.Println("\n Invalid Input Type. Try Again")
+	 			fmt.Println("\nInvalid Input Type. Try Again")
 				continue
 			}
 			//First Case:
@@ -49,7 +50,7 @@ func main(){
 			}
 			if (num == 2){
 				for {
-					fmt.Println("\n Please choose a block from the chain. E.g., (2 -> Corresponds to the second block in the chain)")
+					fmt.Println("\nPlease choose a block from the chain. E.g., (2 -> Corresponds to the second block in the chain)")
 					fmt.Println("Enter 0 to go back to main selection")
 					if scanner.Scan(){
 						input := scanner.Text()
@@ -80,6 +81,19 @@ func main(){
 					}
 				}
 				continue
+			}
+			if (num == 3){
+				border := strings.Repeat("=", 60)
+				side := "║"
+
+
+				for _, block := range(curBlockChain.Chain){
+					blockchain.DisplayBlock(block)
+
+				}
+				fmt.Println(border)
+				fmt.Printf("%s End Of Chain \n", side)
+				fmt.Println(border)
 			}
 
 		}

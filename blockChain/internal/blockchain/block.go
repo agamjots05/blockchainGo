@@ -19,6 +19,7 @@ type Block struct {
 	Statistic BlockStatistic
 }
 
+
 func CreateBlock(data string, index int, prevHash string) *Block{
 	curTimeStamp := time.Now()
 	formatTime := curTimeStamp.Format("2006-01-02 15:04:05")
@@ -26,7 +27,7 @@ func CreateBlock(data string, index int, prevHash string) *Block{
 		Index: index,
 		PrevHash: prevHash,
 		Timestamp: formatTime,
-		//We don't set hash. We set during proof of work
+		//We don't set hash. et during proof of work
 		Data: data,
 		Statistic: BlockStatistic{
 			Numworkers: 0,
