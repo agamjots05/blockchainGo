@@ -11,7 +11,7 @@ import(
 
 func main(){
 	//create chain before getting user input
-	curBlockChain := blockchain.InitChain(3)
+	curBlockChain := blockchain.InitChain(7)
 
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Println("Welcome to the Block Chain CLI. Choose a number below")
@@ -19,7 +19,6 @@ func main(){
 		fmt.Println("\n1 --> Add a transaction to a block chain ")
 		fmt.Println("2 --> Print a specific blocks statistics")
 		fmt.Println("3 --> Print your current block chain ")
-		fmt.Println("4 --> Validate Current Chain ")
 
 		if scanner.Scan(){
 			input := scanner.Text()
@@ -96,6 +95,8 @@ func main(){
 				fmt.Println(border)
 			}
 
+		}
+		if (num == 4){
 		}
 
 	}
